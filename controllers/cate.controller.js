@@ -23,10 +23,10 @@ exports.getCategory = async(req, res, next)=>{
 
 
 exports.addCate = async(req, res, next)=>{
-  
-    const {title} = req.body;
+  console.log(req.body)
+    const {category} = req.body;
     const newBlog = new Categ({
-        title,
+        category,
     }); 
     
     try {

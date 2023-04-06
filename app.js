@@ -3,6 +3,7 @@ const cors = require('cors');
 const connectDB = require('./utils/connectDB');
 const topicRouter = require('./routes/topic.route');
 const catRouter = require('./routes/cate.route');
+const routerUser = require('./routes/user.route');
 require('dotenv').config()
 const port = process.env.PORT || 5000;
 
@@ -15,6 +16,7 @@ app.use(express.static('./uploads'));
 
 app.use('/api/topic', topicRouter)
 app.use('/api/category', catRouter)
+app.use('/api/user', routerUser)
 connectDB()
 
 app.get('/', (req, res)=>{

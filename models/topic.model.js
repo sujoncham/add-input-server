@@ -13,7 +13,12 @@ const topicSchema = new mongoose.Schema({
     image: {
         type: String,
         required: true,
-    }
+    },
+    category:[{
+        type: mongoose.Types.ObjectId,
+        ref: 'category',
+        required: true,
+    }],
 }, {
     timestamps: true,
 });

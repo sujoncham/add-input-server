@@ -6,6 +6,11 @@ const cateSchema = new mongoose.Schema({
         required: true,
         unique: [true, 'already exist this title'],
     },
+    topic:[{
+        type: mongoose.Types.ObjectId,
+        ref: 'topic',
+        required: true,
+    }],
 }, {
     timestamps: true,
 });
