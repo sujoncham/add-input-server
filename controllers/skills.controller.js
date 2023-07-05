@@ -1,15 +1,16 @@
-const Categ = require("../models/category.model");
+const Skills = require("../models/skills.model");
 
 
-exports.getCategory = async(req, res, next)=>{
+
+exports.getSkills = async(req, res, next)=>{
 
     try {
-        const blogs = await Categ.find()
+        const caty = await Skills.find().populate('User');
 
         return res.status(200).json({
             status: "success",
             message: "blog is created successfully",
-            data: blogs,
+            data: caty,
         })
          
     } catch (error) {
@@ -22,11 +23,14 @@ exports.getCategory = async(req, res, next)=>{
 };
 
 
-exports.addCate = async(req, res, next)=>{
+exports.addSkills = async(req, res, next)=>{
   console.log(req.body)
-    const {category} = req.body;
-    const newBlog = new Categ({
-        category,
+  const skillId = req.params.id;
+    const {skill, description, user_id} = req.body;
+    const newBlog = new Skills({
+        skill,
+        description,
+        user_id: skillId,
     }); 
     
     try {
@@ -47,12 +51,12 @@ exports.addCate = async(req, res, next)=>{
     })
 };
 
-exports.getCatById = async(req, res, next)=>{
+exports.getSkillsById = async(req, res, next)=>{
     
     try {
         const {title} = req.body;
         const blogId = req.params.id;
-        const blog = await Categ.findByIdAndUpdate(blogId, {
+        const blog = await Skills.findByIdAndUpdate(blogId, {
             title,
         });
 
@@ -67,11 +71,11 @@ exports.getCatById = async(req, res, next)=>{
 };
 
 
-exports.updateCatById = async(req, res, next)=>{
+exports.updateSkillsById = async(req, res, next)=>{
     
     try {
         const blogId = req.params.id;
-        const blog = await Categ.findById(blogId).populate('user');
+        const blog = await Skills.findById(blogId).populate('user');
 
          return res.status(200).json({
             status: "success",
@@ -83,23 +87,3 @@ exports.updateCatById = async(req, res, next)=>{
     }
 };
 
-
-exports.deleteCate = async(req, res, next)=>{
-    
-    try {
-        const blogId = req.params.id;
-         await Categ.findByIdAndRemove(blogId);
-
-         return res.status(200).json({
-            status: "success",
-            message: "deleted blog by id successfully",
-        })
-    } catch (error) {
-        return res.status(400).json({
-            status: "failed",
-            message: "not deleted blog",
-            error: error.message,
-        })
-    }
-
-};
